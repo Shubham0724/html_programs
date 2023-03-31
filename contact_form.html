@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact form</title>
+    
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="container">
+        <form autocomplete="off" method="POST" name="google-sheet">
+            <h3><center>Contact from</center></h3>
+            <input type="text" placeholder="Type Your Name Here" name="name">
+            <input type="email" placeholder="Type Your Email Here" name="email">
+            <input type="text" placeholder="Type Your Number Here" name="mobile">
+            <select name="degree">
+                <option value="Not selected">Select an option</option>
+                <option value="BCA">BCA</option>
+                <option value="BSC">BSC</option>
+                <option value="BCS">BCS</option>
+                <option value="B.Tech">B.Tech</option>
+            </select>
+
+            <textarea rows="4" placeholder="how can we help you?" name="message"></textarea>
+
+            <label><b>Gender</b></label>
+
+            
+                <label *ngFor="let radiobutton of radioItems">
+                  <input type="radio" name="options" (click)="model.option = radiobutton"
+                  [checked]="radiobutton === model.option">Male
+                </label>
+                <label *ngFor="let radiobutton of radioItems">
+                    <input type="radio" name="options" (click)="model.option = radiobutton"
+                    [checked]="radiobutton === model.option">Female
+                  </label>
+
+            <button type="submit" name="submit">Send</button>
+            <button type="reset" class="reset">Reset</button>
+
+            
+        </form>
+    </div>
+
+
+    <script>
+       
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxyxwUuAeQwXMLJYTYpi8HPskHkekWpMsvE_GfsaXM4wFGGhPZQTOdFWb1koi9OMLrI/exec'
+        const form = document.forms['google-sheet']
+ 
+        form.addEventListener('submit',e=> {
+         e.preventDefault()
+         fetch(scriptURL, {method: 'POST', body: new FormData(form)})
+         .then(response => alert("Thanks for Contacting us...! We will Contact You Soon...."))
+         .catch(error => console.error('Error!', error.message))
+        })
+ 
+ </script>
+ 
+
+
+</body>
+</html>
